@@ -5,7 +5,8 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 import { useCallback, useEffect, useState } from "react"
 export default function Nav() {
 	const [providers, setProviders] = useState(null);
-	const isUserLoggedIn = false;
+	useEffect(() => console.log({ providers }), [])
+	const { data: session } = useSession()
 	const [toggleDropdown, setToggleDropdown] = useState(false);
 	const toggelMenu = useCallback(() => setToggleDropdown(prev => !prev), [])
 	useEffect(() => {
@@ -15,6 +16,7 @@ export default function Nav() {
 		}
 		fetchProviders();
 	}, [])
+
 	return (
 		<nav className="flex-between w-full mb-6 pt-3">
 			<Link Link href={'/'} className="flex gap-2 flex-center" >
@@ -26,8 +28,9 @@ export default function Nav() {
 				/>
 				<p className="logo_text">Promptopia</p>
 			</Link>
+
 			<div className="sm:flex hidden">
-				{isUserLoggedIn ?
+				{session?.user ?
 					(<div className="flex gap-3 md:gap-5">
 						<Link
 							href={'/create-prompt'}
@@ -68,7 +71,7 @@ export default function Nav() {
 				}
 			</div>
 			<div className="sm:hidden flex relative">
-				{isUserLoggedIn ?
+				{session ?
 					(<div>
 						<Image
 							src={"/assets/icons/menu.svg"}
