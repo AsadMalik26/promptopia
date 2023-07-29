@@ -9,8 +9,10 @@ export const connectToDB = async () => {
   }
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: "share_prompt",
+      dbName: "promptopia",
     });
+    isConnected = true;
+    console.log("Connected");
   } catch (error) {
     console.log(error, "MongoDB connection error");
   }

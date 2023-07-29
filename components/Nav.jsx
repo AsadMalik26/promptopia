@@ -48,10 +48,11 @@ export default function Nav() {
 						<Link href={"/profile"} className="gap-2 flex-center">
 							Profile
 							<Image
-								src={"/assets/images/logo.svg"}
+								src={session?.user?.image}
 								height={30}
 								width={30}
-								className="object-contain"
+								alt={session?.user?.name || "profile"}
+								className="object-contain rounded-full"
 							/>
 
 						</Link>
